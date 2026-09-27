@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社招面试复习指南 — cjx132 博客</title>
+<style>
+  :root { --accent: #4a90d9; --bg: #f8f9fa; --card: #fff; --border: #e1e4e8; --text: #24292e; --green: #28a745; --orange: #d73a49; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+  header { background: linear-gradient(135deg, #2b3a5c, #4a90d9); color: #fff; padding: 2rem 1.5rem; text-align: center; }
+  header h1 { font-size: 1.6rem; margin-bottom: 0.3rem; }
+  header p { opacity: 0.85; font-size: 0.9rem; }
+  .container { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
+  .progress-bar { background: #e1e4e8; border-radius: 1rem; height: 8px; margin: 1rem 0; overflow: hidden; }
+  .progress-fill { background: var(--green); height: 100%; width: 0%; transition: width 0.3s; border-radius: 1rem; }
+  #progressText { text-align: center; font-size: 0.85rem; color: #666; margin-bottom: 1rem; }
+  .section { background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.5rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; cursor: pointer; user-select: none; }
+  .section-header h2 { font-size: 1.1rem; }
+  .section-header .badge { font-size: 0.75rem; padding: 2px 10px; border-radius: 1rem; }
+  .p-high { background: #ffeaea; color: var(--orange); }
+  .p-mid { background: #fff8e1; color: #f57c00; }
+  .p-low { background: #e8f5e9; color: var(--green); }
+  .section-body { display: none; padding: 0 1.25rem 1rem; }
+  .section-body.open { display: block; }
+  .subsection { margin: 0.75rem 0; }
+  .subsection h3 { font-size: 0.95rem; color: var(--accent); margin-bottom: 0.4rem; border-left: 3px solid var(--accent); padding-left: 8px; }
+  .post-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; }
+  .post-item { display: flex; align-items: center; padding: 4px 8px; border-radius: 4px; text-decoration: none; color: var(--text); font-size: 0.85rem; transition: all 0.15s; }
+  .post-item:hover { background: #f0f4f8; }
+  .post-item.done { opacity: 0.4; text-decoration: line-through; }
+  .post-item input { margin-right: 6px; accent-color: var(--green); }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 4px; margin: 0.5rem 0; }
+  .tag-chip { font-size: 0.75rem; padding: 2px 8px; border-radius: 1rem; background: #eef1f4; color: #586069; }
+  .summary-box { background: #f0f7ff; border-left: 4px solid var(--accent); padding: 0.6rem 1rem; margin: 0.5rem 0; border-radius: 4px; font-size: 0.85rem; }
+  .roadmap { display: flex; flex-direction: column; gap: 0.5rem; margin: 1rem 0; }
+  .roadmap-item { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.6rem 1rem; background: #f8f9fa; border-radius: 6px; border: 1px solid var(--border); }
+  .roadmap-num { background: var(--accent); color: #fff; min-width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; }
+  .roadmap-item strong { font-size: 0.9rem; }
+  .roadmap-item p { font-size: 0.8rem; color: #666; }
+  details summary { cursor: pointer; font-weight: 600; font-size: 0.85rem; padding: 0.3rem 0; }
+  details ul { list-style: none; padding-left: 0.5rem; }
+  details li { font-size: 0.82rem; padding: 2px 0; }
+  .toggle-all { font-size: 0.8rem; color: var(--accent); cursor: pointer; margin-left: 0.5rem; }
+  footer { text-align: center; padding: 2rem; color: #999; font-size: 0.8rem; }
+  @media (max-width: 600px) { .post-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>社招面试复习指南</h1>
+  <p>基于 cjx132 博客 317 篇文章 · 覆盖 Java 后端 + 算法 + 计算机基础</p>
+</header>
+<div class="container">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="progressText">复习进度：0 / 0</div>
+
+  <div class="summary-box">
+    <strong>你的博客资源概览：</strong>算法题约 280 道（Hot100 95题 / LeetCode 83题 / 剑指offer 46题 / Top150 47题 / acwing 12题），Java 后端 22 篇，MySQL 7 篇，计算机基础 3 篇。字节跳动相关题目占比最高（161道），建议以此为主线复习。
+  </div>
+
+  <div class="roadmap">
+    <div class="roadmap-item"><div class="roadmap-num">1</div><div><strong>第一周：Java 核心 + MySQL</strong><p>集合源码 → JUC并发 → JVM → MySQL索引/事务/锁。这是社招必考的八股核心区。</p></div></div>
+    <div class="roadmap-item"><div class="roadmap-num">2</div><div><strong>第二周：算法模板 + 高频题</strong><p>二分/DP/回溯模板 → 动态规划专题 → 链表/树/双指针。每类至少手写 3 题。</p></div></div>
+    <div class="roadmap-item"><div class="roadmap-num">3</div><div><strong>第三周：Spring生态 + 计算机基础</strong><p>Spring IoC/AOP → SpringBoot自动配置 → TCP/HTTPS → OS进程线程/IO多路复用 → Redis。</p></div></div>
+    <div class="roadmap-item"><div class="roadmap-num">4</div><div><strong>第四周：模拟面试 + 查漏补缺</strong><p>按标签刷薄弱项，重点复习字节高频题。项目经历准备 STAR 法讲述。</p></div></div>
+  </div>
+
+  <!-- Section 1: Java Core -->
+  <div class="section" data-section="java">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>Java 核心基础</h2>
+      <span class="badge p-high">必考</span>
+    </div>
+    <div class="section-body">
+      <div class="summary-box">社招重点：HashMap 源码（数组+链表+红黑树）、ConcurrentHashMap、synchronized vs ReentrantLock、线程池 7 参数 4 拒绝策略、AQS 原理、JVM 垃圾收集器、类加载机制与双亲委派。</div>
+
+      <div class="subsection">
+        <h3>Java 基础（22篇）</h3>
+        <div class="tag-row"><span class="tag-chip">集合</span><span class="tag-chip">并发</span><span class="tag-chip">JVM</span><span class="tag-chip">反射</span><span class="tag-chip">IO</span><span class="tag-chip">泛型</span><span class="tag-chip">异常</span></div>
+        <div class="post-grid">
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/09/19/Java/集合/" target="_blank">集合框架</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/11/12/Java/JUC并发编程/" target="_blank">JUC并发编程</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/02/05/Java/JVM/" target="_blank">JVM</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/03/05/Java/反射/" target="_blank">反射</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/09/23/Java/IO/" target="_blank">IO流</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/09/23/Java/泛型/" target="_blank">泛型</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/01/06/Java/异常/" target="_blank">异常</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2019/12/13/Java/java入门/" target="_blank">Java入门</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/01/04/Java/面向对象/" target="_blank">面向对象</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/01/05/Java/java核心类/" target="_blank">核心类</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/09/24/Java/多线程/" target="_blank">多线程</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/10/09/Java/注解/" target="_blank">注解</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/03/12/Java/Java锁/" target="_blank">Java锁(AQS)</a></label>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Spring 生态（5篇）</h3>
+        <div class="tag-row"><span class="tag-chip">IoC</span><span class="tag-chip">AOP</span><span class="tag-chip">自动配置</span><span class="tag-chip">事务</span></div>
+        <div class="post-grid">
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/10/26/Java/Spring/" target="_blank">Spring (IoC/AOP/事务)</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/10/29/Java/SpringMVC/" target="_blank">SpringMVC</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/11/01/Java/Spring-Boot/" target="_blank">Spring Boot</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/10/24/Java/Mybatis/" target="_blank">MyBatis</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/11/07/Java/微服务/" target="_blank">微服务</a></label>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Web & 设计模式（4篇）</h3>
+        <div class="post-grid">
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/10/16/Java/J2EE/" target="_blank">J2EE (Servlet/Session/JDBC)</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/10/27/Java/设计模式/" target="_blank">设计模式(代理)</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/12/02/Java/设计模式复习/" target="_blank">设计模式复习</a></label>
+          <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/02/04/Java/数据库/" target="_blank">数据库(事务/隔离级别)</a></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: MySQL -->
+  <div class="section" data-section="mysql">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>MySQL 深入</h2>
+      <span class="badge p-high">必考</span>
+    </div>
+    <div class="section-body">
+      <div class="summary-box">核心考点：B+树索引原理、最左前缀原则、索引下推、事务隔离级别与MVCC、间隙锁/next-key locks、redo log/binlog 两阶段提交、change buffer、sort buffer 排序优化。</div>
+      <div class="post-grid">
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/04/03/MySQL45讲学习笔记/索引/" target="_blank">索引(B+树/最左前缀/索引下推)</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/04/03/MySQL45讲学习笔记/锁/" target="_blank">锁(两阶段锁/间隙锁/死锁)</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/04/03/MySQL45讲学习笔记/03讲事务隔离/" target="_blank">事务隔离(MVCC/undo log)</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/04/03/MySQL45讲学习笔记/01讲基础架构-查询语句的执行/" target="_blank">查询语句执行流程</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/04/09/MySQL45讲学习笔记/23讲MySQL是怎么保证数据不丢的/" target="_blank">数据不丢(redo/binlog)</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/04/04/MySQL45讲学习笔记/09普通索引和唯一索引/" target="_blank">普通vs唯一索引(change buffer)</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/04/04/MySQL45讲学习笔记/16讲"orderby"是怎么工作的/" target="_blank">ORDER BY 排序原理</a></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Computer Fundamentals -->
+  <div class="section" data-section="cs">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>计算机基础</h2>
+      <span class="badge p-mid">常考</span>
+    </div>
+    <div class="section-body">
+      <div class="summary-box">TCP三次握手/四次挥手、TIME_WAIT 2MSL、HTTPS握手流程、IO多路复用(select/poll/epoll)、用户态/内核态、进程间通信、协程。</div>
+      <div class="post-grid">
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/03/01/计算机网络/" target="_blank">计算机网络(TCP/HTTPS/Token)</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/03/22/操作系统/" target="_blank">操作系统(IO多路复用/协程/中断)</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/04/13/面试/redis/" target="_blank">Redis(数据结构/主从同步)</a></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Algorithm Templates -->
+  <div class="section" data-section="templates">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>算法模板（先刷这些）</h2>
+      <span class="badge p-high">必考</span>
+    </div>
+    <div class="section-body">
+      <div class="summary-box">建议先过一遍模板再刷题。每个模板至少手写 3 遍到肌肉记忆。</div>
+      <div class="post-grid">
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/10/14/Top150/二分模板/" target="_blank">二分模板</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/11/27/Top150/动态规划模板/" target="_blank">DP模板(背包/区间DP/数位DP)</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/11/22/Top150/回溯模板/" target="_blank">回溯模板(剪枝优化)</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/10/14/Top150/快排全解/" target="_blank">排序全解(双路/三路快排)</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/11/28/Top150/树状数组全解/" target="_blank">树状数组</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/11/29/Top150/线段树/" target="_blank">线段树(lazy tag)</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/11/15/Top150/素数筛法/" target="_blank">素数筛法</a></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: By Algorithm Tag -->
+  <div class="section" data-section="algo-tags">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>算法题按标签分类</h2>
+      <span class="badge p-high">刷题</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:0.82rem;color:#666;margin-bottom:0.5rem;">点击展开各标签的题目列表，可直接跳转到博客对应的题解页面。</p>
+
+      <details><summary>动态规划（43题）— 最高频考点</summary><ul>
+        <li>背包问题、区间DP、状态压缩DP、树形DP</li>
+        <li>高频：分割等和子集 · 零钱兑换 · 买卖股票系列(1-4+含手续费) · 乘积最大子数组 · 不同的二叉搜索树 · 不同路径 · 鸡蛋掉落 · 交错字符串 · 最长递增子序列的个数 · 最长重复子数组 · 计算数组的小和 · 圆环回原点问题 · 得到子序列的最少操作次数 · 和至少为K的最短子数组 · 分割字母区间</li>
+      </ul></details>
+
+      <details><summary>树（27题）</summary><ul>
+        <li>高频：二叉树的最近公共祖先 · 二叉树的直径 · 二叉树展开为链表 · 二叉树中的最大路径和 · 对称的二叉树 · 重建二叉树 · 二叉搜索树的第k大节点 · 二叉搜索树与双向链表 · 翻转二叉树 · 左叶子之和 · 平衡二叉树 · 二叉树最大宽度 · 二叉树的锯齿形层序遍历 · 二叉树的完全性检验</li>
+      </ul></details>
+
+      <details><summary>双指针（26题）</summary><ul>
+        <li>高频：三数之和 · 四数之和 · 盛最多水的容器 · 两数之和 · 和为s的两个数字 · 最接近的三数之和 · 有效三角形的个数 · 反转字符串 · 长度最小的子数组 · 滑动窗口的最大值 · 合并两个有序数组 · 移除元素 · 两数相加2 · 划分字母区间</li>
+      </ul></details>
+
+      <details><summary>链表（22题）</summary><ul>
+        <li>高频：反转链表 · 反转链表II · K个一组翻转链表 · 环形链表 · 合并K个升序链表 · 相交链表 · 删除链表的倒数第N个节点 · 两个链表的第一个公共节点 · 合并两个排序的链表 · 链表中倒数第k个节点 · 复杂链表的复制 · 重排链表 · 排序奇升偶降链表 · 两两交换链表中的节点 · 删除排序链表中的重复元素(1/2)</li>
+      </ul></details>
+
+      <details><summary>贪心（15题）</summary><ul>
+        <li>高频：跳跃游戏 · 柠檬水找零 · 用最少数量的箭引爆气球 · 摆动序列 · 划分字母区间 · 分发糖果 · 买卖股票 · 加油站 · 任务调度器 · 根据身高重建队列</li>
+      </ul></details>
+
+      <details><summary>回溯（14题）</summary><ul>
+        <li>高频：全排列 · 子集 · 组合总和 · N皇后 · 划分为k个相等的子集 · 单词搜索 · 删除无效的括号 · 复原IP地址 · 迷路的机器人 · 重建队列 · 矩阵中的路径</li>
+      </ul></details>
+
+      <details><summary>排序（13题）</summary><ul>
+        <li>高频：排序链表 · 数组中的第K个最大元素 · 数组中的逆序对 · 合并区间 · 最小k个数 · 合并两个有序数组 · 把数组排成最小的数 · 颜色分类 · 排序奇升偶降链表</li>
+      </ul></details>
+
+      <details><summary>二分查找（13题）</summary><ul>
+        <li>高频：搜索旋转排序数组 · 在排序数组中查找元素的第一个和最后一个位置 · x的平方根 · 寻找峰值 · 最小的k个数 · 数字序列中某一位的数字 · 分数到小数 · 木头切割问题 · 第N位数字</li>
+      </ul></details>
+
+      <details><summary>位运算（11题）</summary><ul>
+        <li>高频：二进制中1的个数 · 不用加减乘除做加法 · 数字范围按位与 · 数字转换为十六进制数 · 数组中数字出现的次数 · 矩阵中的路径 · 重复的子字符串</li>
+      </ul></details>
+
+      <details><summary>栈/队列（10+题）</summary><ul>
+        <li>高频：有效的括号 · 包含min函数的栈 · 柱状图中最大的矩形 · 每日温度 · LRU缓存机制 · LFU缓存 · 用队列实现栈 · 队列的最大值 · 滑动窗口的最大值 · 栈的压入弹出序列</li>
+      </ul></details>
+
+      <details><summary>其他专题</summary><ul>
+        <li>哈希表(9题)：两数之和 · 三数之和 · 快乐数 · 前K个高频元素 · 字母异位词</li>
+        <li>字符串(5题)：简化路径 · 验证IP地址 · 字符串相乘 · 压缩字符串 · 最长公共前缀</li>
+        <li>前缀树/Trie(2题)：实现Trie · 单词搜索II</li>
+        <li>设计题：LRU缓存 · LFU缓存 · 打乱数组 · 按权重随机选择 · 随机数索引 · 链表随机节点</li>
+        <li>数学(9题)：裴波那契数列 · 数值的整数次方 · 快速幂 · 丑数 · 圆环回原点 · 飞机座位分配概率 · 最大交换</li>
+      </ul></details>
+    </div>
+  </div>
+
+  <!-- Section 6: ByteDance High Freq -->
+  <div class="section" data-section="bytedance">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>字节跳动高频题精选</h2>
+      <span class="badge p-high">161题</span>
+    </div>
+    <div class="section-body">
+      <div class="summary-box">你的博客中 161 道题标记了"字节跳动"标签。以下是按出现频率排序的 Top 20 必刷题，社招笔试/面试最高概率考。</div>
+      <div class="post-grid">
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/06/22/Hot100/两数之和/" target="_blank">两数之和</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/08/18/Hot100/最长回文子串/" target="_blank">最长回文子串</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/08/14/Hot100/单词拆分/" target="_blank">单词拆分</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/08/28/Hot100/岛屿数量/" target="_blank">岛屿数量</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/08/22/Hot100/盛最多水的容器/" target="_blank">盛最多水的容器</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/08/19/Hot100/排序链表/" target="_blank">排序链表</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/08/20/Hot100/乘积最大子数组/" target="_blank">乘积最大子数组</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/09/10/Hot100/LRU缓存机制/" target="_blank">LRU缓存机制</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/09/11/Hot100/戳气球/" target="_blank">戳气球</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/09/12/Hot100/柱状图中最大的矩形/" target="_blank">柱状图中最大的矩形</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/09/06/Hot100/目标和/" target="_blank">目标和</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2020/09/09/Hot100/任务调度器/" target="_blank">任务调度器</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/08/12/leetcode/LFU缓存/" target="_blank">LFU缓存</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/08/15/leetcode/鸡蛋掉落/" target="_blank">鸡蛋掉落</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/02/09/leetcode/螺旋矩阵/" target="_blank">螺旋矩阵</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/02/19/leetcode/下一个更大元素2/" target="_blank">下一个更大元素II</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/02/11/leetcode/合并区间/" target="_blank">合并区间</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/02/22/leetcode/长度最小的子数组/" target="_blank">长度最小的子数组</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/02/21/leetcode/岛屿的最大面积/" target="_blank">岛屿的最大面积</a></label>
+        <label class="post-item"><input type="checkbox"><a href="https://cjx132.github.io/cjx132/2021/02/06/leetcode/K个一组翻转链表/" target="_blank">K个一组翻转链表</a></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 7: Quick Recall Cards -->
+  <div class="section" data-section="recall">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h2>速记卡片（面试前 30 分钟翻一遍）</h2>
+      <span class="badge p-mid">速查</span>
+    </div>
+    <div class="section-body">
+      <details open><summary>Java 并发核心</summary>
+        <ul>
+          <li><strong>synchronized vs ReentrantLock</strong>：synchronized 是 JVM 层面的关键字（monitorenter/monitorexit），ReentrantLock 是 API 层面的锁，支持公平锁、响应中断、超时尝试</li>
+          <li><strong>AQS</strong>：核心是 state + CLH 双向队列。独占模式（ReentrantLock）和共享模式（Semaphore/CountDownLatch）</li>
+          <li><strong>线程池 7 参数</strong>：corePoolSize · maxPoolSize · keepAliveTime · unit · workQueue · threadFactory · handler（4种拒绝策略：AbortPolicy/CallerRunsPolicy/DiscardPolicy/DiscardOldestPolicy）</li>
+          <li><strong>volatile</strong>：保证可见性（MESI 缓存一致性）和禁止指令重排（内存屏障），不保证原子性</li>
+          <li><strong>CAS</strong>：Compare-And-Swap，ABA 问题用 AtomicStampedReference 解决</li>
+        </ul>
+      </details>
+      <details><summary>JVM 核心</summary>
+        <ul>
+          <li><strong>GC 收集器</strong>：Serial（单线程）→ Parallel（多线程高吞吐）→ CMS（低延迟，标记-清除，4步：初始标记→并发标记→重新标记→并发清除）→ G1（Region 划分，可预测停顿，Remembered Set 避免全堆扫描）</li>
+          <li><strong>类加载</strong>：加载→连接（验证+准备+解析）→初始化。双亲委派：先委托父加载器，防止核心类被篡改</li>
+          <li><strong>内存区域</strong>：堆（新生代 Eden+S0+S1 / 老年代）· 方法区/元空间 · 虚拟机栈 · 本地方法栈 · 程序计数器</li>
+        </ul>
+      </details>
+      <details><summary>MySQL 核心</summary>
+        <ul>
+          <li><strong>索引</strong>：B+树（叶子节点双向链表，范围查询快）。最左前缀原则。索引下推（ICP）减少回表</li>
+          <li><strong>事务隔离</strong>：读未提交→读提交→可重复读(MySQL默认)→序列化。MVCC 通过 undo log + 一致性视图实现快照读</li>
+          <li><strong>锁</strong>：两阶段锁协议（事务结束时才释放）。RR 级别间隙锁防幻读，RC 无间隙锁</li>
+          <li><strong>持久化</strong>：redo log（crash-safe，WAL机制）+ binlog（复制/归档）。两阶段提交保证一致性</li>
+        </ul>
+      </details>
+      <details><summary>计算机网络核心</summary>
+        <ul>
+          <li><strong>TCP 三次握手</strong>：SYN → SYN+ACK → ACK。防止历史报文建立无效连接</li>
+          <li><strong>TCP 四次挥手</strong>：FIN → ACK → FIN → ACK。TIME_WAIT 等待 2MSL 防止最后一个 ACK 丢失</li>
+          <li><strong>HTTPS</strong>：证书验证 → 非对称加密传输会话密钥 → 对称加密通信</li>
+          <li><strong>IO 多路复用</strong>：select（fd数量限制）→ poll（无限制但O(n)遍历）→ epoll（事件驱动，O(1)）</li>
+        </ul>
+      </details>
+      <details><summary>Spring 核心</summary>
+        <ul>
+          <li><strong>IoC</strong>：控制反转，DI 是实现方式。三级缓存解决循环依赖（singletonObjects · earlySingletonObjects · singletonFactories）</li>
+          <li><strong>AOP</strong>：动态代理（JDK 接口代理 / CGLIB 继承代理）。$Proxy0 extends Proxy implements Interface，invoke 调用 InvocationHandler</li>
+          <li><strong>Spring Boot 自动配置</strong>：扫描 META-INF/spring.factories，加载 xxxAutoConfiguration，配合 xxxProperties 实现约定大于配置</li>
+        </ul>
+      </details>
+      <details><summary>算法速记</summary>
+        <ul>
+          <li><strong>二分</strong>：找第一个满足条件 mid = l+r>>1，找最后一个 mid = l+r+1>>1（防死循环）</li>
+          <li><strong>DP 三步</strong>：定义状态 → 考虑转移 → 递归/递推。复杂度 = 状态数 × 转移数</li>
+          <li><strong>01背包</strong>：倒序遍历；<strong>完全背包</strong>：正序遍历</li>
+          <li><strong>回溯六步</strong>：终止→剪枝→保存→改全局变量→递归→恢复。剪枝须O(1)</li>
+          <li><strong>三路快排</strong>：lt/i/gt 三指针，循环条件 while(i&lt;gt)，重复元素多时优于双路</li>
+        </ul>
+      </details>
+    </div>
+  </div>
+
+  <footer>
+    基于博客 <a href="https://cjx132.github.io/cjx132/" target="_blank">cjx132.github.io/cjx132</a> 生成<br>
+    所有链接直接跳转到你的博客对应文章页面
+  </footer>
+</div>
+
+<script>
+function toggleSection(header) {
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+// Progress tracking
+const checkboxes = document.querySelectorAll('.post-item input[type="checkbox"]');
+const progressFill = document.getElementById('progressFill');
+const progressText = document.getElementById('progressText');
+function updateProgress() {
+  const total = checkboxes.length;
+  const checked = document.querySelectorAll('.post-item input[type="checkbox"]:checked').length;
+  progressFill.style.width = (checked / total * 100) + '%';
+  progressText.textContent = '复习进度：' + checked + ' / ' + total;
+  // Save to localStorage
+  const checkedIds = [];
+  checkboxes.forEach((cb, i) => { if (cb.checked) checkedIds.push(i); });
+  localStorage.setItem('interview_progress', JSON.stringify(checkedIds));
+  // Mark as done
+  cb = event && event.target;
+  if (cb) cb.closest('.post-item').classList.toggle('done', cb.checked);
+}
+checkboxes.forEach((cb, i) => {
+  cb.addEventListener('change', updateProgress);
+  cb.id = 'cb_' + i;
+});
+// Load from localStorage
+try {
+  const saved = JSON.parse(localStorage.getItem('interview_progress') || '[]');
+  saved.forEach(i => { if (checkboxes[i]) { checkboxes[i].checked = true; checkboxes[i].closest('.post-item').classList.add('done'); } });
+} catch(e) {}
+updateProgress();
+</script>
+</body>
+</html>

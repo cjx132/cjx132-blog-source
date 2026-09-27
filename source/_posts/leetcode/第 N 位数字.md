@@ -10,11 +10,9 @@ tags:
 
 # 题目
 
-![image-20210508101325216](C:%5CUsers%5CAUSU%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210508101325216.png)
 
 # 综述
 
-![image-20210508101944691](C:%5CUsers%5CAUSU%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210508101944691.png)
 
 1.  先找到在哪个区间
 2.  找到是区间的哪个数
